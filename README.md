@@ -1,4 +1,4 @@
-# AI_Project
+# AI_Project - Blog Post - https://blogs.gwu.edu/rahulrajesh-modi/2024/12/13/ai-powered-portfolio-optimization/
 Managing a financial portfolio involves striking a balance between reducing risk and optimizing returns. Given the dynamic character of financial markets—their constantly fluctuating volatility, changing economic situations, and changing investor preferences—this is no simple task. Although portfolio management has been based on traditional procedures, these approaches frequently fail to meet the complexity of contemporary financial settings. With the "AI-Powered Portfolio Optimization" project, we hope to address these issues by applying state-of-the-art Probabilistic methods.
 
 Due to high dimensionality, dynamic correlations among assets, and the need to trade off risk and return, portfolio optimization is more than straightforward calculations. The model needs to be flexible so that it can adapt to managing multiple assets, given that the relationship changes over time. With data being time-series data it has non-linear trends and patterns that demand AI modeling techniques. These complexities make the problem non-trival in nature.
@@ -17,7 +17,7 @@ Step 4- Now we perform Monte Carlo simulation using the transtional probabilties
 Step 5- Particle filter helps with optimizing portfolio weights. 
 Step 6- Finally we compare cummulative returns of real vs optimized portfolios and analyze correlation between the selected assets in our optimized portfolio.
 
-To add market sentiments into the model I had used the scraped market news data of last 2 months of all the assets and assigned market states to the news. After that I had calculated the transtion matrix, steady state, and then used thiese probabilities to do step 4, 5 and 6.
+To add market sentiments into the model I had used the scraped market news data of last 2 months of all the assets and assigned market states to the news. After that I had calculated the transtion matrix, steady state, and then used these probabilities to do step 4, 5 and 6.
 
 Now lets go over the code and the discuss the result from the two models above - 
 
@@ -74,7 +74,7 @@ print("States value counts:")
 print(states.value_counts())
 
 The code is simple as we take the portfolio returns and assign them states Bear, Bull or Neutral, if it is less than 0.33 than Bull, if between 0.33 and 0.67 Neutral and lastly if greater then 0.67 it is Bear.
-The returns are portfolio returns and not just normal stocks returns, to get the portfolio returns, for this we have to first assign intial weights, I have used following code - 
+The returns are portfolio returns and not just normal stocks returns, to get the portfolio returns, for this we have to first assign intial weights, I have used the following code - 
 
 stock_weights = 0.7 / len(stocks)
 bond_weights = 0.3 / len(bonds)
@@ -83,7 +83,7 @@ weights = {asset: stock_weights if asset in stocks else bond_weights for asset i
 weights_array = np.array([weights[asset] for asset in assets])
 portfolio_returns = returns.dot(weights_array)
 
-I have given 0.7 to all the stocks and 0.3 to bonds, the intial weights are just 0.7/ number of stocks and 0.3/ number of bonds.
+I have given 0.7 to all the stocks and 0.3 to bonds, the initial weights are just 0.7/ number of stocks and 0.3/ number of bonds.
 
 Next, I have performed Markov Chains using the following code -  
 
@@ -133,7 +133,7 @@ def monte_carlo(current_state, transition_matrix, state_stats, n_simulations=100
             daily_return = np.random.normal(mean, std)#daily return baised on mean and standard deviation
             daily_returns.append(daily_return)
             state = np.random.choice([0, 1, 2], p=transition_matrix[state])#choose a state based on probabilites
-        simulations.append(np.exp(np.cumsum(daily_returns)))#append the cumalitive value of daily returns
+        simulations.append(np.exp(np.cumsum(daily_returns)))#append the cumulative value of daily returns
     return np.array(simulations)
 
 current_state = states.iloc[-1] #most recent state
